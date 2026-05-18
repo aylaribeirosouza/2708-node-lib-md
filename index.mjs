@@ -1,5 +1,47 @@
+import fs from 'fs';
 import chalk from 'chalk';
 
-const texto = "A sequência do sucesso de suspense A Empregada 2026 foi confirmada, intitulada O Segredo da Empregada, com estreia nos cinemas prevista para 17 de dezembro de 2027. O novo filme, baseado no segundo livro de Freida McFadden, trará o retorno de Sydney Sweeney como Millie e Paul Feig na direção";
+function trataErro(erro) {
+    console.log(erro); 
+    throw new Error(chalk.red(erro.code, 'não há arquivo no diretório'));
+}
 
-console.log(chalk.magenta(texto)); 
+// async/await
+
+async function pegaArquivo(caminhoDoArquivo) {
+    try {
+    const encoding = 'utf-8';
+
+    const texto = await fs.promises.readFile(caminhoDoArquivo, encoding)
+    console.log(chalk.magenta(texto)); 
+    } catch (erro) {
+        trataErro(erro)
+    }
+}
+
+// promises com then()
+
+//function pegaArquivo(caminhoDoArquivo) {
+//    const encoding = 'utf-8';
+//    fs.promises
+//   .readFile(caminhoDoArquivo, encoding)
+//   .then((texto) => console.log(chalk.magenta(texto))) 
+//   .catch(trataErro)
+//}
+
+//function pegaArquivo(caminhoDoArquivo) {
+//    const encoding = 'utf-8';
+//    fs.readFile(caminhoDoArquivo, encoding, (erro, texto) => {
+//        if (erro) {
+//            trataErro(erro);
+//        }
+//        console.log(chalk.magenta(texto));
+//    })
+//}
+
+ pegaArquivo('./arquivos/texto.md'); 
+  pegaArquivo('./arquivos/'); 
+
+
+
+
